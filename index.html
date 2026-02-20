@@ -341,6 +341,36 @@
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
   }
 
+  /* Image sticker styling */
+  .img-sticker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: auto;
+    cursor: move;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    z-index: 9999;
+  }
+
+  .img-sticker .remove-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: rgba(212,175,55,0.95);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+
   /* Save notice */
   .save-notice {
     position: fixed;
@@ -714,45 +744,6 @@ function prevPage() {
   if (currentFlip > 0) {
     currentFlip--;
     updateUI();
-  }
-}
-
-function addSticker() {
-  const stickers = ['✨', '🌟', '💫', '⭐', '✨', '🎀', '🌸', '🌺', '🌻', '🌷', '🌹', '💝', '💖', '💗', '💓', '❤️', '🎵', '🎶', '🦋', '🐝', '🌙', '☀️', '🌤️', '✨', '💝'];
-  const sticker = stickers[Math.floor(Math.random() * stickers.length)];
-  
-  // Find the active textarea (front page of current flip, or left textarea)
-  let activeTextarea = null;
-  
-  if (currentFlip === 0) {
-    // On cover, add to left content - try to find first textarea there
-    const leftTA = document.querySelector('#leftContent textarea');
-    activeTextarea = leftTA;
-  } else {
-    // Find the textarea in the front of current flip page
-    const frontTA = document.querySelector(`#ta_${(currentFlip - 1) * 2}`);
-    const backTA = document.querySelector(`#ta_left_${(currentFlip - 1) * 2 + 1}`);
-    activeTextarea = frontTA || backTA;
-  }
-  
-  if (activeTextarea) {
-    const start = activeTextarea.selectionStart;
-    const end = activeTextarea.selectionEnd;
-    const text = activeTextarea.value;
-    activeTextarea.value = text.substring(0, start) + sticker + text.substring(end);
-    activeTextarea.selectionStart = activeTextarea.selectionEnd = start + sticker.length;
-    
-    // Save the change
-    const id = activeTextarea.id;
-    if (id && id.startsWith('ta_')) {
-      const idx = parseInt(id.split('_')[1]);
-      pages[idx] = activeTextarea.value;
-      localStorage.setItem(`journal_page_${idx}`, activeTextarea.value);
-    }
-    
-    activeTextarea.focus();
-  } else {
-    alert('Click in the journal to select where to add a sticker!');
   }
 }
 
