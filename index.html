@@ -1,51 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Midnight Journal</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Brown Journal</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #2b2b2b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Times New Roman", serif;
+    perspective: 2000px;
+}
+
+.book {
+    width: 400px;
+    height: 550px;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+    cursor: pointer;
+}
+
+.page div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+/* SIMPLE BROWN COVER */
+.cover-front {
+    background: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+}
+
+.cover-inside {
+    background: #eee;
+    transform: rotateY(180deg);
+}
+
+/* Pages */
+.page-front {
+    background: #fff;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.page-back {
+    background: #fff;
+    transform: rotateY(180deg);
+}
+
+/* Flip animation */
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+/* Layer order */
+#cover { z-index: 3; }
+#page1 { z-index: 2; }
+#page2 { z-index: 1; }
+
+</style>
 </head>
+
 <body>
 
-    <div class="home" id="home">
-        <div class="intro">
-            <h1>The Midnight Journal</h1>
-            <p>Capture your thoughts in the quiet hours.</p>
-            <div class="book-cover" onclick="openBook()">
-                <div class="cover-design">
-                    <span class="gold-text">Journal</span>
-                </div>
-                <p class="hint">Click to begin</p>
-            </div>
+<div class="book">
+
+    <!-- COVER -->
+    <div class="page" id="cover">
+        <div class="cover-front">
+            Journal
         </div>
+        <div class="cover-inside"></div>
     </div>
 
-    <div class="book-wrapper" id="bookContainer">
-        <div class="book">
-            <div class="page left-page">
-                <div class="paper">
-                    <div class="lines">
-                        <textarea placeholder="The story begins here..."></textarea>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="page right-page">
-                <div class="paper">
-                    <div class="lines">
-                        <textarea placeholder="Add more details..."></textarea>
-                    </div>
-                </div>
-            </div>
+    <!-- PAGE 1 -->
+    <div class="page" id="page1">
+        <div class="page-front">
+            <h2>Page 1</h2>
+            <p>This is the first page.</p>
         </div>
-
-        <div class="controls">
-            <button class="btn" onclick="closeBook()">Close Journal</button>
-            <button class="btn" onclick="saveEntry()">Save Memory</button>
-        </div>
+        <div class="page-back"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- PAGE 2 -->
+    <div class="page" id="page2">
+        <div class="page-front">
+            <h2>Page 2</h2>
+            <p>This is the second page.</p>
+        </div>
+        <div class="page-back"></div>
+    </div>
+
+</div>
+
+<script>
+const pages = document.querySelectorAll(".page");
+
+pages.forEach(page => {
+    page.addEventListener("click", () => {
+        page.classList.toggle("flipped");
+    });
+});
+</script>
+
 </body>
 </html>
