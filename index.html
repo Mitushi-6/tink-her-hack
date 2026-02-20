@@ -328,6 +328,19 @@
     font-family: 'Playfair Display', serif;
   }
 
+  /* Sticker Button */
+  .sticker-btn {
+    background: linear-gradient(135deg, #8b5a2b 0%, #d4af37 100%);
+    color: #1a0a00;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .sticker-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+  }
+
   /* Save notice */
   .save-notice {
     position: fixed;
@@ -348,9 +361,155 @@
     background: linear-gradient(to right, rgba(0,0,0,0.08), transparent);
     pointer-events: none;
   }
+
+  /* Login Page Styles */
+  #loginPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 20%, #1a0a00 0%, #0d0500 60%, #050200 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  #loginPage.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .login-container {
+    background: rgba(20, 10, 5, 0.8);
+    border: 2px solid #8a5a2a;
+    padding: 50px 40px;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(200, 160, 80, 0.2);
+    min-width: 350px;
+    backdrop-filter: blur(10px);
+  }
+
+  .login-container h1 {
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+
+  .login-container p {
+    color: #9a7a4a;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    color: #d4af37;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .form-group input {
+    padding: 12px 15px;
+    border: 1px solid #8a5a2a;
+    background: rgba(100, 70, 30, 0.3);
+    color: #e8d5b0;
+    border-radius: 5px;
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: #d4af37;
+    background: rgba(100, 70, 30, 0.5);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .form-group input::placeholder {
+    color: #6b5c3e;
+  }
+
+  .login-btn {
+    padding: 12px;
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    color: #1a0a00;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  }
+
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  }
+
+  .login-msg {
+    text-align: center;
+    color: #9a7a4a;
+    font-size: 12px;
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
+
+<!-- Login Page -->
+<div id="loginPage">
+  <div class="login-container">
+    <h1>My Journal</h1>
+    <p>Your thoughts, your world</p>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="loginUsername">Username</label>
+        <input type="text" id="loginUsername" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <p class="login-msg">First login will create your account</p>
+  </div>
+</div>
+
+<!-- Journal -->
+<div id="journalApp" style="display: none; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+<!-- Logout Button -->
+<button id="logoutBtn" style="position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #d4af37; color: #1a0a00; border: none; border-radius: 5px; cursor: pointer; font-family: 'Playfair Display', serif; font-weight: bold; z-index: 999;">Logout</button>
 
 <div class="page-indicator" id="pageIndicator">Page 1 of 6</div>
 
@@ -390,6 +549,7 @@
   <button id="prevBtn" onclick="prevPage()" disabled>← Prev</button>
   <span class="nav-label" id="navLabel">Pg 1</span>
   <button id="nextBtn" onclick="nextPage()">Next →</button>
+  <button id="stickerBtn" onclick="addSticker()" class="sticker-btn">✨ Sticker</button>
 </div>
 
 <div class="save-notice">✦ writes are auto-saved</div>
@@ -557,6 +717,45 @@ function prevPage() {
   }
 }
 
+function addSticker() {
+  const stickers = ['✨', '🌟', '💫', '⭐', '✨', '🎀', '🌸', '🌺', '🌻', '🌷', '🌹', '💝', '💖', '💗', '💓', '❤️', '🎵', '🎶', '🦋', '🐝', '🌙', '☀️', '🌤️', '✨', '💝'];
+  const sticker = stickers[Math.floor(Math.random() * stickers.length)];
+  
+  // Find the active textarea (front page of current flip, or left textarea)
+  let activeTextarea = null;
+  
+  if (currentFlip === 0) {
+    // On cover, add to left content - try to find first textarea there
+    const leftTA = document.querySelector('#leftContent textarea');
+    activeTextarea = leftTA;
+  } else {
+    // Find the textarea in the front of current flip page
+    const frontTA = document.querySelector(`#ta_${(currentFlip - 1) * 2}`);
+    const backTA = document.querySelector(`#ta_left_${(currentFlip - 1) * 2 + 1}`);
+    activeTextarea = frontTA || backTA;
+  }
+  
+  if (activeTextarea) {
+    const start = activeTextarea.selectionStart;
+    const end = activeTextarea.selectionEnd;
+    const text = activeTextarea.value;
+    activeTextarea.value = text.substring(0, start) + sticker + text.substring(end);
+    activeTextarea.selectionStart = activeTextarea.selectionEnd = start + sticker.length;
+    
+    // Save the change
+    const id = activeTextarea.id;
+    if (id && id.startsWith('ta_')) {
+      const idx = parseInt(id.split('_')[1]);
+      pages[idx] = activeTextarea.value;
+      localStorage.setItem(`journal_page_${idx}`, activeTextarea.value);
+    }
+    
+    activeTextarea.focus();
+  } else {
+    alert('Click in the journal to select where to add a sticker!');
+  }
+}
+
 // Click flip pages to turn
 flipEls.forEach((el, i) => {
   el.addEventListener('click', (e) => {
@@ -569,5 +768,93 @@ flipEls.forEach((el, i) => {
 
 updateUI();
 </script>
+
+</div> <!-- End journalApp -->
+
+<script>
+// ==================== Login Management ====================
+let users = JSON.parse(localStorage.getItem('journalUsers')) || {};
+let currentUser = null;
+
+function handleLogin(event) {
+  event.preventDefault();
+  
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  
+  if (!username || !password) {
+    alert('Please enter both username and password');
+    return;
+  }
+  
+  // Check if user exists
+  if (users[username]) {
+    // Verify password
+    if (users[username].password === password) {
+      loginUser(username);
+    } else {
+      alert('Incorrect password. Please try again.');
+      document.getElementById('loginPassword').value = '';
+    }
+  } else {
+    // Create new user
+    users[username] = { password: password };
+    localStorage.setItem('journalUsers', JSON.stringify(users));
+    loginUser(username);
+  }
+}
+
+function loginUser(username) {
+  currentUser = username;
+  localStorage.setItem('currentUser', username);
+  
+  // Clear form
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  
+  // Show journal, hide login
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('journalApp').style.display = 'flex';
+  
+  // Reset journal state for new login
+  currentFlip = 0;
+  updateUI();
+}
+
+function handleLogout() {
+  if (confirm('Are you sure you want to logout?')) {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    
+    // Reset form
+    document.getElementById('loginUsername').value = '';
+    document.getElementById('loginPassword').value = '';
+    
+    // Show login, hide journal
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('journalApp').style.display = 'none';
+    
+    // Reset journal state
+    currentFlip = 0;
+    flipEls.forEach(el => el.classList.remove('flipped'));
+  }
+}
+
+// Logout button event listener
+document.addEventListener('DOMContentLoaded', function() {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', handleLogout);
+  }
+  
+  // Check if user is already logged in
+  const savedUser = localStorage.getItem('currentUser');
+  if (savedUser && users[savedUser]) {
+    loginUser(savedUser);
+  }
+});
+</script>
+
 </body>
 </html>
+
