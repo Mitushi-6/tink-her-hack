@@ -1,126 +1,573 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Brown Journal</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    background: #2b2b2b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Times New Roman", serif;
-    perspective: 2000px;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.book {
-    width: 400px;
-    height: 550px;
+  body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 30% 20%, #1a0a00 0%, #0d0500 60%, #050200 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Crimson Text', serif;
+    overflow: hidden;
     position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* Page counter */
+  .page-indicator {
+    color: #8a6a3a;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0.7;
+  }
+
+  /* Scene */
+  .scene {
+    perspective: 3000px;
+    perspective-origin: 50% 48%;
+  }
+
+  /* Book container */
+  .book {
+    position: relative;
+    width: 700px;
+    height: 480px;
     transform-style: preserve-3d;
-}
+  }
 
-.page {
-    width: 100%;
-    height: 100%;
+  /* Book spine shadow */
+  .book::before {
+    content: '';
     position: absolute;
-    transform-origin: left;
-    transform-style: preserve-3d;
-    transition: transform 1s ease;
-    cursor: pointer;
-}
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to right, #1a0800, #5c2a0a, #1a0800);
+    transform: translateX(-50%);
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  }
 
-.page div {
+  /* Book ground shadow */
+  .book::after {
+    content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-}
+    bottom: -30px;
+    left: 5%;
+    right: 5%;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%);
+    filter: blur(10px);
+  }
 
-/* SIMPLE BROWN COVER */
-.cover-front {
-    background: brown;
+  /* Left page (static) */
+  .left-page {
+    position: absolute;
+    left: 0; top: 0;
+    width: 50%; height: 100%;
+    background: #fdf6e3;
+    background-image:
+      linear-gradient(to right, #e8d5b0 0%, #fdf6e3 6%),
+      repeating-linear-gradient(transparent, transparent 31px, #c8b89080 32px);
+    background-size: 100% 100%, 100% 32px;
+    box-shadow: inset -8px 0 20px rgba(0,0,0,0.15), inset 5px 0 10px rgba(0,0,0,0.05);
+    z-index: 5;
+    overflow: hidden;
+    border-radius: 2px 0 0 2px;
+  }
+
+  .left-page::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; width: 30px;
+    background: linear-gradient(to right, #c8a87040, transparent);
+    pointer-events: none;
+  }
+
+  .page-content {
+    position: absolute;
+    inset: 0;
+    padding: 36px 36px 36px 44px;
+    overflow: hidden;
+  }
+
+  .page-number {
+    position: absolute;
+    bottom: 18px;
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: #9a7a4a;
+    letter-spacing: 1px;
+  }
+
+  .left-page .page-number { right: 20px; }
+
+  textarea {
+    width: 100%;
+    height: calc(100% - 20px);
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'Crimson Text', serif;
+    font-size: 19px;
+    line-height: 32px;
+    color: #2c1a08;
+    caret-color: #8b4513;
+    word-break: break-word;
+  }
+
+  textarea::placeholder {
+    color: #c8a87099;
+    font-style: italic;
+  }
+
+  /* Page heading on left */
+  .page-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #7a5a2a;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c8b89060;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    color: white;
-    font-size: 30px;
-}
+  }
 
-.cover-inside {
-    background: #eee;
+  /* Flipping pages container */
+  .pages-stack {
+    position: absolute;
+    right: 0; top: 0;
+    width: 50%; height: 100%;
+    transform-style: preserve-3d;
+    z-index: 10;
+  }
+
+  /* Individual flipping page */
+  .flip-page {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 1.1s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    cursor: pointer;
+  }
+
+  .flip-page .front,
+  .flip-page .back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .flip-page .front {
+    background: #fdf6e3;
+    background-image:
+      linear-gradient(to left, #e8d5b0 0%, #fdf6e3 6%),
+      repeating-linear-gradient(transparent, transparent 31px, #c8b89080 32px);
+    background-size: 100% 100%, 100% 32px;
+    box-shadow: inset 8px 0 20px rgba(0,0,0,0.12), -3px 0 8px rgba(0,0,0,0.15);
+    border-radius: 0 2px 2px 0;
+    padding: 36px 44px 36px 36px;
+  }
+
+  .flip-page .back {
+    background: #fdf6e3;
+    background-image:
+      linear-gradient(to right, #e8d5b0 0%, #fdf6e3 6%),
+      repeating-linear-gradient(transparent, transparent 31px, #c8b89080 32px);
+    background-size: 100% 100%, 100% 32px;
     transform: rotateY(180deg);
-}
+    box-shadow: inset -8px 0 20px rgba(0,0,0,0.12);
+    border-radius: 2px 0 0 2px;
+    padding: 36px 36px 36px 44px;
+  }
 
-/* Pages */
-.page-front {
-    background: #fff;
-    padding: 40px;
-    box-sizing: border-box;
-}
-
-.page-back {
-    background: #fff;
-    transform: rotateY(180deg);
-}
-
-/* Flip animation */
-.page.flipped {
+  .flip-page.flipped {
     transform: rotateY(-180deg);
-}
+  }
 
-/* Layer order */
-#cover { z-index: 3; }
-#page1 { z-index: 2; }
-#page2 { z-index: 1; }
+  /* Page curl effect on hover */
+  .flip-page:not(.flipped):hover .front::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 60px; height: 60px;
+    background: linear-gradient(225deg, #d4b896 45%, transparent 46%);
+    pointer-events: none;
+    transition: 0.3s;
+  }
 
+  /* Right side static base */
+  .right-base {
+    position: absolute;
+    right: 0; top: 0;
+    width: 50%; height: 100%;
+    background: #f5e8cc;
+    background-image:
+      linear-gradient(to left, #e0c898 0%, #f5e8cc 6%),
+      repeating-linear-gradient(transparent, transparent 31px, #c8b89060 32px);
+    background-size: 100% 100%, 100% 32px;
+    box-shadow: inset 8px 0 15px rgba(0,0,0,0.1);
+    z-index: 2;
+    border-radius: 0 2px 2px 0;
+    padding: 36px 44px 36px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .right-base .end-message {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: #9a7a4a66;
+    text-align: center;
+  }
+
+  .right-base .page-number { right: 20px; }
+
+  .flip-page .front .page-number {
+    right: 18px;
+  }
+
+  .flip-page .back .page-number {
+    right: 18px;
+  }
+
+  /* Stacking z-index — pages need correct layering */
+
+  /* Navigation buttons */
+  .nav {
+    display: flex;
+    gap: 20px;
+    margin-top: 24px;
+    align-items: center;
+  }
+
+  .nav button {
+    background: none;
+    border: 1px solid #5c3a1a66;
+    color: #c8a060;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #5c3a1a;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+    z-index: -1;
+  }
+
+  .nav button:hover {
+    color: #f5deb3;
+    border-color: #8a5a2a;
+  }
+
+  .nav button:hover::before {
+    transform: scaleX(1);
+  }
+
+  .nav button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  .nav button:disabled:hover::before {
+    transform: scaleX(0);
+  }
+
+  .nav button:disabled:hover {
+    color: #c8a060;
+  }
+
+  .nav-label {
+    color: #5c3a1a88;
+    font-size: 13px;
+    letter-spacing: 1px;
+    min-width: 80px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Save notice */
+  .save-notice {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: #8a6a3a88;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Page flip sound hint */
+  .flip-page .front::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; width: 20px;
+    background: linear-gradient(to right, rgba(0,0,0,0.08), transparent);
+    pointer-events: none;
+  }
 </style>
 </head>
-
 <body>
 
-<div class="book">
+<div class="page-indicator" id="pageIndicator">Page 1 of 6</div>
 
-    <!-- COVER -->
-    <div class="page" id="cover">
-        <div class="cover-front">
-            Journal
-        </div>
-        <div class="cover-inside"></div>
+<div class="scene">
+  <div class="book">
+
+    <!-- Left static page -->
+    <div class="left-page">
+      <div class="page-content" id="leftContent">
+        <!-- filled by JS -->
+      </div>
+      <span class="page-number" id="leftPageNum">i</span>
     </div>
 
-    <!-- PAGE 1 -->
-    <div class="page" id="page1">
-        <div class="page-front">
-            <h2>Page 1</h2>
-            <p>This is the first page.</p>
+    <!-- Right base (last visible layer) -->
+    <div class="right-base" id="rightBase">
+      <div class="page-content" style="width: 100%; display: flex; flex-direction: column; justify-content: flex-start;">
+        <div class="page-heading" id="rightPageHeading">
+          <span id="rightPageDate"></span>
         </div>
-        <div class="page-back"></div>
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+          <div class="end-message">✦ finis ✦</div>
+        </div>
+      </div>
+      <span class="page-number" id="rightPageNum"></span>
     </div>
 
-    <!-- PAGE 2 -->
-    <div class="page" id="page2">
-        <div class="page-front">
-            <h2>Page 2</h2>
-            <p>This is the second page.</p>
-        </div>
-        <div class="page-back"></div>
+    <!-- Flipping pages stack -->
+    <div class="pages-stack" id="pagesStack">
+      <!-- Generated by JS -->
     </div>
 
+  </div>
 </div>
 
+<div class="nav">
+  <button id="prevBtn" onclick="prevPage()" disabled>← Prev</button>
+  <span class="nav-label" id="navLabel">Pg 1</span>
+  <button id="nextBtn" onclick="nextPage()">Next →</button>
+</div>
+
+<div class="save-notice">✦ writes are auto-saved</div>
+
 <script>
-const pages = document.querySelectorAll(".page");
+// --- Data ---
+const TOTAL_PAGES = 365; // number of writable pages (365-day journal)
+// Each "page" is one side. Left shows even indices, right shows odd.
+// We have: left[0..5], the flip pages reveal them.
 
-pages.forEach(page => {
-    page.addEventListener("click", () => {
-        page.classList.toggle("flipped");
-    });
+// Journal pages data
+const pages = [];
+for (let i = 0; i < TOTAL_PAGES; i++) {
+  const saved = localStorage.getItem(`journal_page_${i}`);
+  pages.push(saved || '');
+}
+
+const DATES = [];
+for (let i = 0; i < TOTAL_PAGES; i++) {
+  const d = new Date();
+  d.setDate(d.getDate() + i + 1);
+  DATES.push(d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+}
+
+// Number of flip pages = TOTAL_PAGES / 2 (each flip page has front+back)
+// We need ceil(TOTAL_PAGES/2) flip pages
+// Spread 0: left=page0, right=page1 (initial view, page1 is on top flip page front)
+// After flip 1: left=page1(back visible), right=page2 ...
+
+// currentFlip = 0 means we see left=cover-ish / right=page[0]
+// After flip: left=page[1], right=page[2], etc.
+
+// Let's simplify:
+// State: currentSpread (0-based)
+// Spread 0: Left shows "Welcome", Right shows page 0 (flip[0].front)
+// After flip[0]: Left shows page 1 (flip[0].back), Right shows page 2 (flip[1].front)
+// After flip[1]: Left shows page 3, Right shows page 4 ...
+
+const FLIP_COUNT = Math.ceil(TOTAL_PAGES / 2); // 3
+let currentFlip = 0; // how many pages have been flipped
+
+// Build flip pages
+const stack = document.getElementById('pagesStack');
+const flipEls = [];
+
+for (let i = 0; i < FLIP_COUNT; i++) {
+  const div = document.createElement('div');
+  div.className = 'flip-page';
+  div.style.zIndex = FLIP_COUNT - i;
+
+  const frontPageIdx = i * 2;     // page index on front
+  const backPageIdx = i * 2 + 1;  // page index on back
+
+  div.innerHTML = `
+    <div class="front">
+      <div class="page-heading">
+        <span>${DATES[frontPageIdx] || ''}</span>
+      </div>
+      <textarea placeholder="Write your thoughts here…" id="ta_${frontPageIdx}">${pages[frontPageIdx]}</textarea>
+      <span class="page-number">${frontPageIdx + 1}</span>
+    </div>
+    <div class="back">
+      <div class="page-heading">
+        <span>${DATES[backPageIdx] || ''}</span>
+      </div>
+      <textarea placeholder="Write your thoughts here…" id="ta_${backPageIdx}">${pages[backPageIdx] || ''}</textarea>
+      <span class="page-number">${backPageIdx + 1}</span>
+    </div>
+  `;
+
+  flipEls.push(div);
+  stack.appendChild(div);
+}
+
+// Auto-save
+document.addEventListener('input', e => {
+  if (e.target.tagName === 'TEXTAREA') {
+    const id = e.target.id; // ta_N
+    const idx = parseInt(id.split('_')[1]);
+    pages[idx] = e.target.value;
+    localStorage.setItem(`journal_page_${idx}`, e.target.value);
+  }
 });
-</script>
 
+// Left page rendering
+const leftContent = document.getElementById('leftContent');
+const leftPageNum = document.getElementById('leftPageNum');
+
+function renderLeft() {
+  if (currentFlip === 0) {
+    // Show a decorative "welcome" on the left
+    leftContent.innerHTML = `
+      <div style="height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:12px; opacity:0.5;">
+        <div style="font-family:'Playfair Display',serif; font-size:38px; color:#5c3a1a; letter-spacing:3px;">Journal</div>
+        <div style="width:60px; height:1px; background:#9a7a4a;"></div>
+        <div style="font-style:italic; color:#9a7a4a; font-size:16px;">your thoughts, your world</div>
+      </div>
+    `;
+    leftPageNum.textContent = '';
+  } else {
+    const backPageIdx = (currentFlip - 1) * 2 + 1;
+    leftContent.innerHTML = `
+      <div class="page-heading">
+        <span>${DATES[backPageIdx] || ''}</span>
+      </div>
+      <textarea placeholder="Write your thoughts here…" id="ta_left_${backPageIdx}">${pages[backPageIdx] || ''}</textarea>
+    `;
+    leftPageNum.textContent = backPageIdx + 1;
+
+    // Wire up save for the mirrored left textarea
+    const ta = document.getElementById(`ta_left_${backPageIdx}`);
+    ta.addEventListener('input', () => {
+      pages[backPageIdx] = ta.value;
+      localStorage.setItem(`journal_page_${backPageIdx}`, ta.value);
+      // also sync the hidden flip page back textarea
+      const hidden = document.getElementById(`ta_${backPageIdx}`);
+      if (hidden) hidden.value = ta.value;
+    });
+  }
+}
+
+function updateUI() {
+  // Flip pages: those with index < currentFlip are flipped
+  flipEls.forEach((el, i) => {
+    if (i < currentFlip) {
+      el.classList.add('flipped');
+    } else {
+      el.classList.remove('flipped');
+    }
+  });
+
+  renderLeft();
+
+  // Update right base
+  const rightPageIdx = currentFlip * 2;
+  const rightPageDate = document.getElementById('rightPageDate');
+  const rightPageNum = document.getElementById('rightPageNum');
+  if (rightPageIdx < TOTAL_PAGES) {
+    rightPageDate.textContent = DATES[rightPageIdx] || '';
+    rightPageNum.textContent = (rightPageIdx + 1);
+  }
+
+  // Buttons
+  document.getElementById('prevBtn').disabled = currentFlip === 0;
+  document.getElementById('nextBtn').disabled = currentFlip >= FLIP_COUNT;
+
+  // Indicator
+  const spreadNum = currentFlip + 1;
+  const totalSpreads = FLIP_COUNT + 1;
+  document.getElementById('pageIndicator').textContent = `Spread ${spreadNum} of ${totalSpreads}`;
+  document.getElementById('navLabel').textContent = currentFlip === 0 ? 'Start' : `Pg ${currentFlip * 2}`;
+}
+
+function nextPage() {
+  if (currentFlip < FLIP_COUNT) {
+    currentFlip++;
+    updateUI();
+  }
+}
+
+function prevPage() {
+  if (currentFlip > 0) {
+    currentFlip--;
+    updateUI();
+  }
+}
+
+// Click flip pages to turn
+flipEls.forEach((el, i) => {
+  el.addEventListener('click', (e) => {
+    if (e.target.tagName === 'TEXTAREA') return;
+    if (!el.classList.contains('flipped') && currentFlip === i) {
+      nextPage();
+    }
+  });
+});
+
+updateUI();
+</script>
 </body>
 </html>

@@ -1,16 +1,40 @@
-let currentPage = 0;
-const pages = document.querySelectorAll(".page");
+
 
 function nextPage() {
-    if (currentPage < pages.length) {
-        pages[currentPage].classList.add("flipped");
-        currentPage++;
-    }
+  if (currentFlip < flipEls.length) {
+    flipEls[currentFlip].classList.add("flipped");
+    currentFlip++;
+    updateUI();
+  }
 }
 
 function prevPage() {
-    if (currentPage > 0) {
-        currentPage--;
-        pages[currentPage].classList.remove("flipped");
-    }
+  if (currentFlip > 0) {
+    currentFlip--;
+    flipEls[currentFlip].classList.remove("flipped");
+    updateUI();
+  }
+}
+function nextPage() {
+
+  if (currentFlip >= flipEls.length) return;
+
+  // flip current page
+  flipEls[currentFlip].classList.add("flipped");
+
+  currentFlip++;
+
+  updateUI();
+}
+
+function prevPage() {
+
+  if (currentFlip <= 0) return;
+
+  currentFlip--;
+
+  // unflip previous page
+  flipEls[currentFlip].classList.remove("flipped");
+
+  updateUI();
 }
