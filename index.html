@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Midnight Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="home" id="home">
+        <div class="intro">
+            <h1>The Midnight Journal</h1>
+            <p>Capture your thoughts in the quiet hours.</p>
+            <div class="book-cover" onclick="openBook()">
+                <div class="cover-design">
+                    <span class="gold-text">Journal</span>
+                </div>
+                <p class="hint">Click to begin</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="book-wrapper" id="bookContainer">
+        <div class="book">
+            <div class="page left-page">
+                <div class="paper">
+                    <div class="lines">
+                        <textarea placeholder="The story begins here..."></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page right-page">
+                <div class="paper">
+                    <div class="lines">
+                        <textarea placeholder="Add more details..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="closeBook()">Close Journal</button>
+            <button class="btn" onclick="saveEntry()">Save Memory</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
