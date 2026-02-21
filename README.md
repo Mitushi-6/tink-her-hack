@@ -1,4 +1,4 @@
-<p align="center">
+<img width="1920" height="1080" alt="Screenshot (95)" src="https://github.com/user-attachments/assets/f3e5b8bc-1c5d-4e88-9097-ed138649950a" /><p align="center">
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
@@ -13,16 +13,16 @@
 - Member 2: [Mitushi Manoj] - [Adi Shankara Institute of Engineering and Technology]
 
 ### Hosted Project Link
-[mention your project hosted link here]
+[https://mitushi-6.github.io/tink-her-hack/]
 
 ### Project Description
-[2-3 lines about what your project does]
+[Inkwell is an interactive digital journal that lets users capture their daily thoughts, ideas, and memories in a visually engaging way. Users can write, organize, and flip through their journal pages like a real book, while adding images, cropping them, and turning them into personalized stickers for a creative touch]
 
 ### The Problem statement
-[What problem are you solving?]
+[Many people struggle to maintain a daily journal due to the lack of engaging and interactive tools. Traditional journaling can feel monotonous, and digital alternatives often lack personalization, creative expression, and the tactile feel of flipping through pages. Users also find it difficult to integrate multimedia elements like images seamlessly into their journals.]
 
 ### The Solution
-[How are you solving it?]
+[Inkwell solves these problems by providing a digital journaling platform that mimics the experience of a real flip-book. Users can write freely on beautifully designed pages, flip through their entries, and personalize their journal with images by cropping and placing them as stickers. This interactive approach encourages consistent journaling while allowing creative expression, making the process engaging and enjoyable]
 
 ---
 
@@ -31,10 +31,9 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: [e JavaScript, HTML, CSS]
+- Libraries used: [HTML5, CSS3,JavaScript]
+- Tools used: [VS Code, Git]
 
 **For Hardware:**
 - Main components: [List main components]
@@ -46,10 +45,10 @@
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+- Feature 1: [Users can log in with a username and password, ensuring personal entries are private.]
+- Feature 2: [After login, users see a home page with a folder representing the journal, providing a realistic “select your journal” experience.]
+- Feature 3: [The journal has a thick, brown cover with multiple pages that flip realistically, mimicking a real notebook.]
+- Feature 4: [Users can write directly on the journal pages without accidental flipping, preserving the immersive writing experience.]
 
 ---
 
@@ -67,14 +66,6 @@ List the key features of your project:
 [Run commands - e.g., npm start, python app.py]
 ```
 
-### For Hardware:
-
-#### Components Required
-[List all components needed with specifications]
-
-#### Circuit Setup
-[Explain how to set up the circuit]
-
 ---
 
 ## Project Documentation
@@ -83,51 +74,49 @@ List the key features of your project:
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1920" height="1080" alt="Screenshot (93)" src="https://github.com/user-attachments/assets/39ea4ed3-2638-4f8b-8d42-e14adbdedfb6" />
+](Add screenshot 1 here with proper name)
+*Login page*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1920" height="1080" alt="Screenshot (94)" src="https://github.com/user-attachments/assets/44f582e8-9ddf-4e2b-bee0-97bcc77e8ead" />
+](Add screenshot 2 here with proper name)
+*Journal Page*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1920" height="1080" alt="Screenshot (95)" src="https://github.com/user-attachments/assets/ad40764f-2a34-4598-932e-267fd0028020" />
+](Add screenshot 3 here with proper name)
+*Adding journaling details and writings*
 
 #### Diagrams
 
 **System Architecture:**
 
-![Architecture Diagram](docs/architecture.png)
-*Explain your system architecture - components, data flow, tech stack interaction*
+![<img width="544" height="674" alt="Screenshot 2026-02-21 061652" src="https://github.com/user-attachments/assets/6b3f2a5d-8017-4115-8c4a-d066bb84b529" />
+](docs/architecture.png)
+*System Architecture
+User – Opens the app, logs in, and interacts with the journal.
+
+Login Page – Accepts username and password; after login, goes to the home page.
+
+Home Page – Shows a folder representing the journal; clicking it opens the journal.
+
+Journal Page (3D Book) – Contains a thick brown cover and multiple pages that can flip.
+
+Editable Pages – Users can write directly on pages without accidentally flipping them.
+
+Page Flipping – Clicking outside the writing area flips pages realistically.
+
+Local Storage (Optional) – Saves written entries in the browser for later retrieval.
+
+Data Flow:
+User → Login → Home → Select Journal → Open Book → Write → Flip Pages → Save (optional)
+
+Tech Stack:
+HTML, CSS, and JavaScript (front-end only)*
 
 **Application Workflow:**
 
 ![Workflow](docs/workflow.png)
 *Add caption explaining your workflow*
-
----
-
-### For Hardware:
-
-#### Schematic & Circuit
-
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-#### Build Photos
-
-![Team](Add photo of your team here)
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ---
 
