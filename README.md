@@ -111,7 +111,7 @@ HTML, CSS, and JavaScript (front-end only)*
 **Application Workflow:**
 
 ![<img width="2560" height="6278" alt="User Journal System Flow-2026-02-21-005807" src="https://github.com/user-attachments/assets/e320ba63-63d2-4f2b-912d-fc36def2ac57" />](docs/workflow.png)
-*Add caption explaining your workflow*
+*This diagram shows the workflow of the interactive journal application: from user login to writing in a 3D flipping journal with editable pages*
 
 ---
 
@@ -134,22 +134,21 @@ If you used AI tools during development, document them here for transparency:
 **Tool Used:** [GitHub ,Copilot, ChatGPT, Claude]
 
 **Purpose:** [What you used it for]
-- Example: "Generated boilerplate React components"
-- Example: "Debugging assistance for async functions"
-- Example: "Code review and optimization suggestions"
+- Example: "Assisted in writing HTML/CSS/JS code for the interactive 3D journal"
+- Example: "Provided guidance on implementing page flipping and editable pagess"
+- Example: "Debugging and optimizing scripts to prevent accidental flipping while writings"
 
 **Key Prompts Used:**
-- "Create a REST API endpoint for user authentication"
-- "Debug this async function that's causing race conditions"
-- "Optimize this database query for better performance"
+- "Create a 3D flipping journal with editable pages using HTML, CSS, and JS"
+- "Fix accidental page flipping when user types in contenteditable area"
+- "Explain the system architecture in simple terms for a project report"
 
 **Percentage of AI-generated code:** [Approximately 90%]
 
 **Human Contributions:**
-- Architecture design and planning
-- Custom business logic implementation
-- Integration and testing
-- UI/UX design decisions
+- Designing the project workflow and structure
+- Deciding on the brown thick book aesthetic and page layout
+- Integrating login, home page, and journal navigation
 
 *Note: Proper documentation of AI usage demonstrates transparency and earns bonus points in evaluation!*
 
@@ -157,9 +156,8 @@ If you used AI tools during development, document them here for transparency:
 
 ## Team Contributions
 
-- [Name 1]: [Specific contributions - e.g., Frontend development, API integration, etc.]
-- [Name 2]: [Specific contributions - e.g., Backend development, Database design, etc.]
-- [Name 3]: [Specific contributions - e.g., UI/UX design, Testing, Documentation, etc.]
+- [Mitushi Manoj]: [Specific contributions - 3D journal design,workflow & system architecture design.]
+- [Mithra P Suriakanth]: [Specific contributions - e.g., page flipping logic,able pages implementation ]
 
 ---
 
