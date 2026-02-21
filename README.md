@@ -118,7 +118,7 @@ HTML, CSS, and JavaScript (front-end only)*
 ## Project Demo
 
 ### Video
-[Add your demo video link here - YouTube, Google Drive, etc.]
+[Add your demo video link here - [https://drive.google.com/file/d/17guzZwKZkd9TC2h84u_6AU0tT1btDDTo/view?usp=sharing]
 
 *Explain what the video demonstrates - key features, user flow, technical highlights*
 
