@@ -1,6 +1,5 @@
 <img width="1280" height="640" alt="img" src="https://github.com/user-attachments/assets/9a29d8ff-feed-41a0-a31d-556735e4aa31" /><p align="center">
-ng" alt="Project Banner" width="100%">
-</p>
+
 
 # [“Inkwell” – Where ideas come alive on every page.] 🎯
 
